@@ -17,7 +17,7 @@ def get_recipes():
 
     return jsonify([recipe.name for recipe in matching_recipes])
 
-@app.route('/api/recipe/<int:recipe_id>', mehotds=['GET'])
+@app.route('/api/recipe/<int:recipe_id>', methods=['GET'])
 def get_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
     return jsonify({
