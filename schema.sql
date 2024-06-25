@@ -3,5 +3,5 @@ CREATE TABLE recipes (
     name TEXT NOT NULL,
     cuisine TEXT NOT NULL,
     ingredients TEXT NOT NULL,
-    instrucitons TEXT NOT NULL
+    instructions TEXT NOT NULL
 );
