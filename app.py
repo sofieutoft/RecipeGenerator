@@ -2,15 +2,11 @@ import os
 import requests
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from models import db, Recipe
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///recipes.db'
-db = SQLAlchemy(app)
-
-class Recipe(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    spoonacular_id = db.Column(db.Integer, unique=True, nullable=False)
-    title = db.Column(db.String(200), nullable=False)
+db.init_app(app)
 
 with app.app_context():
     db.create_all()
@@ -53,7 +49,7 @@ def search_recipes():
 
 @app.route('/add_recipe/<int:dish_id>')
 def add_recipe(dish_id):
-    existing_recipe = Recipe.query.filter_by(spoonacular_id=dish_id).first()
+    existing_recipe = Recipe.query.filter_by(meal_id=dish_id).first()
     if existing_recipe:
         return "This recipe is already in your database."
     
@@ -61,7 +57,13 @@ def add_recipe(dish_id):
     response = requests.get(url, params={'apiKey': api_key})
     dish_info = response.json()
     
-    new_recipe = Recipe(spoonacular_id=dish_id, title=dish_info['title'])
+    new_recipe = Recipe(
+        meal_name=dish_info['title'],
+        meal_id=dish_id,
+        cuisine=dish_info['cuisines'][0] if dish_info['cuisines'] else 'Unknown',
+        ingredients=ingredients,
+        instructions=instructions
+    )
     db.session.add(new_recipe)
     db.session.commit()
     
