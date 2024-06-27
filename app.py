@@ -77,9 +77,18 @@ def view_recipe(dish_id):
     ingredients = get_ingredients(dish_id)
     recipe_card = get_recipe_card(dish_id)
     
+    recipe_card_url = None
+    error_message = None
+    
+    if 'url' in recipe_card:
+        recipe_card_url = recipe_card['url']
+    elif 'status' in recipe_card and recipe_card['status'] == 'failure':
+        error_message = recipe_card.get('message', 'An error occurred while fetching the recipe card.')
+    
     return render_template('recipe_details.html', 
                            ingredients=ingredients['ingredients'], 
-                           recipe_card_url=recipe_card['url'])
+                           recipe_card_url=recipe_card_url,
+                           error_message=error_message)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -12,7 +12,14 @@
     {% endfor %}
     </ul>
     <h2>Recipe Card:</h2>
-    <img src="{{ recipe_card_url }}" alt="Recipe Card">
+    {% if recipe_card_url %}
+        <img src="{{ recipe_card_url }}" alt="Recipe Card">
+    {% elif error_message %}
+        <p>Error: {{ error_message }}</p>
+        <p>Unfortunately, we couldn't generate a recipe card for this recipe. This might be due to the number of ingredients or other limitations of the API.</p>
+    {% else %}
+        <p>No recipe card available for this recipe.</p>
+    {% endif %}
     <br>
     <a href="{{ url_for('search_recipes') }}">Back to Search</a>
 </body>
