@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Details</title>
+</head>
+<body>
+    <h1>Recipe Details</h1>
+    <h2>Ingredients:</h2>
+    <ul>
+    {% for ingredient in ingredients %}
+        <li>{{ ingredient.amount.us.value }} {{ ingredient.amount.us.unit }} of {{ ingredient.name }}</li>
+    {% endfor %}
+    </ul>
+    <h2>Recipe Card:</h2>
+    <img src="{{ recipe_card_url }}" alt="Recipe Card">
+    <br>
+    <a href="{{ url_for('search_recipes') }}">Back to Search</a>
+</body>
+</html>
