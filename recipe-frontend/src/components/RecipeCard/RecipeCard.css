@@ -1,0 +1,43 @@
+.result-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #333;
+    transition: transform 0.2s;
+}
+
+.result-item:hover {
+    transform: scale(1.02);
+}
+
+.result-item img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.result-info {
+    padding: 10px;
+}
+
+.result-info h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.result-info button {
+    padding: 5px 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.result-info button:hover {
+    background-color: #ff4500;
+}
